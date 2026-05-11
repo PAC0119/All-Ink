@@ -1,2 +1,14 @@
-# All-Ink
-A clean, searchable directory of 200+ useful websites across everyday categories like AI, design, dev, travel, jobs, finance, health, and more.
+ALL·INK — Curated Internet Directory
+
+Built with:
+
+HTML
+CSS
+Vanilla JavaScript
+
+Features:
+
+200+ categorized links
+Smart search
+Interactive UI
+Product-focused design
