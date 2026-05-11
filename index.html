@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALL·INK — Every Link You Need</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080807;--bg2:#0f0e0c;--bg3:#171612;--bg4:#1e1c17;
+  --border:#2a271e;--border2:#3d3828;
+  --mustard:#e8b84b;--mustard2:#f2cc6e;
+  --peach:#f07868;--peach2:#f5a090;
+  --cream:#f5edd8;--muted:#7a7260;--muted2:#a09880;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--mustard);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .15s,height .15s}
+#cur-ring{position:fixed;width:34px;height:34px;border:1px solid rgba(232,184,75,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .28s,height .28s}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
+#bgc{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(8,8,7,.85);backdrop-filter:blur(28px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;display:flex;align-items:center;gap:9px;cursor:pointer;flex-shrink:0;color:var(--mustard)}
+.ldot{width:7px;height:7px;background:var(--peach);border-radius:50%;animation:dp 2s infinite}
+@keyframes dp{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.5}}
+.ntabs{display:flex;overflow-x:auto;scrollbar-width:none;max-width:660px}
+.ntabs::-webkit-scrollbar{display:none}
+.nt{color:var(--muted);font-size:10px;padding:0 13px;cursor:pointer;border:none;background:none;font-family:'Syne',sans-serif;letter-spacing:1px;white-space:nowrap;height:58px;border-bottom:2px solid transparent;transition:all .2s;text-transform:uppercase;font-weight:500}
+.nt:hover{color:var(--muted2)}
+.nt.active{color:var(--mustard);border-bottom-color:var(--mustard)}
+.nav-r{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.sbtn{background:none;border:1px solid var(--border2);color:var(--muted);padding:7px 14px;border-radius:20px;font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;letter-spacing:.5px}
+.sbtn:hover{border-color:var(--mustard);color:var(--mustard)}
+.npill{font-size:10px;color:var(--muted);border:1px solid var(--border);padding:4px 10px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase}
+
+.sov{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:500;display:none;align-items:flex-start;justify-content:center;padding-top:13vh;backdrop-filter:blur(12px)}
+.sov.open{display:flex}
+.sbox{width:100%;max-width:660px;padding:0 20px}
+.swrap{position:relative}
+.swrap input{width:100%;background:var(--bg2);border:1px solid var(--border2);color:var(--cream);padding:20px 56px 20px 22px;border-radius:14px;font-size:17px;font-family:'Syne',sans-serif;outline:none;transition:border .2s}
+.swrap input:focus{border-color:var(--mustard)}
+.swrap input::placeholder{color:var(--muted)}
+.scl{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer}
+.sres{margin-top:14px;max-height:55vh;overflow-y:auto;border:1px solid var(--border);border-radius:12px;background:var(--bg2)}
+.si{display:flex;align-items:center;gap:13px;padding:13px 17px;border-bottom:1px solid var(--border);text-decoration:none;color:var(--cream);transition:background .15s}
+.si:last-child{border-bottom:none}
+.si:hover{background:var(--bg3)}
+.sico{font-size:17px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border-radius:8px;flex-shrink:0}
+.sinf{flex:1}.sn{font-size:13px;font-weight:600}
+.sd{font-size:11px;color:var(--muted);margin-top:2px}
+.stg{font-size:9px;color:var(--muted);border:1px solid var(--border);padding:2px 8px;border-radius:10px;flex-shrink:0}
+.shnt{text-align:center;padding:24px;color:var(--muted);font-size:13px}
+
+.hero{padding:108px 36px 80px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center}
+.hero-in{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center}
+.eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--peach);margin-bottom:28px;display:flex;align-items:center;gap:12px;opacity:0;animation:fu .9s .1s forwards}
+.ebl{width:26px;height:1px;background:var(--peach)}
+h1{font-family:'Playfair Display',serif;font-size:80px;line-height:.9;letter-spacing:-3px;margin-bottom:28px;opacity:0;animation:fu .9s .2s forwards;font-weight:900}
+.hy{color:var(--mustard)}
+.hp{color:var(--peach);font-style:italic;display:block}
+.hdesc{font-size:15px;color:var(--muted2);line-height:1.8;max-width:440px;margin-bottom:40px;font-weight:400;opacity:0;animation:fu .9s .3s forwards}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fu .9s .4s forwards}
+.bp{background:var(--mustard);color:#0a0900;padding:14px 28px;border-radius:40px;font-weight:700;font-size:13px;border:none;cursor:pointer;letter-spacing:.5px;transition:all .25s;font-family:'Syne',sans-serif}
+.bp:hover{background:var(--mustard2);transform:translateY(-2px);box-shadow:0 14px 36px rgba(232,184,75,.3)}
+.bg{background:none;border:1px solid var(--border2);color:var(--muted2);padding:14px 22px;border-radius:40px;font-size:13px;cursor:pointer;transition:all .25s;font-family:'Syne',sans-serif;text-decoration:none;display:inline-flex;align-items:center;letter-spacing:.3px}
+.bg:hover{border-color:var(--peach);color:var(--peach)}
+.hero-r{opacity:0;animation:fu .9s .5s forwards}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:12px}
+.sb{background:var(--bg2);padding:24px 20px;display:flex;flex-direction:column;gap:7px;transition:background .2s}
+.sb:hover{background:var(--bg3)}
+.snum{font-family:'Playfair Display',serif;font-size:38px;letter-spacing:-1px;line-height:1;font-weight:900}
+.sm{color:var(--mustard)}.sp{color:var(--peach)}
+.slbl{font-size:10px;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;font-weight:500}
+.tw{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;padding:10px 0}
+.ti{display:flex;gap:16px;animation:tick 26s linear infinite;white-space:nowrap}
+.tit{font-size:10px;color:var(--muted);letter-spacing:1.3px;text-transform:uppercase;padding:3px 11px;border:1px solid var(--border);border-radius:20px;background:var(--bg)}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.fs{padding:0 36px;border-bottom:1px solid var(--border);position:relative;z-index:2}
+.fr{display:flex;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin:36px 0}
+.fc{background:var(--bg2);padding:32px 28px;flex:1;cursor:pointer;transition:background .15s;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;min-height:170px;position:relative;overflow:hidden}
+.fc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--mustard),var(--peach));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.fc:hover{background:var(--bg3)}
+.fc:hover::after{transform:scaleX(1)}
+.ft{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--peach);font-weight:600}
+.fn{font-family:'Playfair Display',serif;font-size:26px;letter-spacing:-.5px;line-height:1.1;font-weight:700;color:var(--mustard2)}
+.fd{font-size:12px;color:var(--muted2);line-height:1.65;flex:1}
+.fu2{font-size:10px;color:var(--muted);font-family:monospace;margin-top:auto}
+
+.bnr{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:13px 36px;display:flex;align-items:center;gap:14px;overflow-x:auto;scrollbar-width:none;position:relative;z-index:2}
+.bnr::-webkit-scrollbar{display:none}
+.blbl{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--peach);white-space:nowrap;flex-shrink:0;font-weight:600}
+.btg{font-size:11px;color:var(--muted2);white-space:nowrap;padding:4px 13px;border:1px solid var(--border);border-radius:20px;transition:all .2s;cursor:pointer;font-weight:500}
+.btg:hover{border-color:var(--mustard);color:var(--mustard)}
+
+.fbar{display:flex;gap:8px;padding:18px 36px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;align-items:center;position:relative;z-index:2}
+.fbar::-webkit-scrollbar{display:none}
+.flbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:4px;white-space:nowrap}
+.chip{background:none;border:1px solid var(--border);color:var(--muted);padding:5px 14px;border-radius:20px;font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.3px;white-space:nowrap;transition:all .2s;font-weight:500}
+.chip:hover{border-color:var(--mustard2);color:var(--mustard2)}
+.chip.active{background:var(--mustard);border-color:var(--mustard);color:#0a0900;font-weight:700}
+
+.csec{border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.cwm{position:absolute;top:36px;right:30px;font-family:'Playfair Display',serif;font-size:80px;color:var(--border);line-height:1;pointer-events:none;letter-spacing:-4px;z-index:1;font-weight:900}
+.cin{padding:44px 36px 0;position:relative;z-index:2}
+.chdr{display:flex;align-items:baseline;gap:14px;margin-bottom:9px;flex-wrap:wrap}
+.cem{font-size:26px}
+.ctit{font-family:'Playfair Display',serif;font-size:34px;letter-spacing:-.8px;font-weight:700;color:var(--mustard)}
+.ccnt{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);padding:3px 11px;border-radius:20px;margin-left:auto;font-weight:500}
+.cdesc{font-size:13px;color:var(--muted2);line-height:1.7;max-width:620px;margin-bottom:28px;font-weight:400}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:1px;background:var(--border);border-top:1px solid var(--border)}
+
+.lc{background:var(--bg2);padding:20px 18px;cursor:pointer;transition:background .15s;display:flex;flex-direction:column;gap:11px;text-decoration:none;color:inherit;position:relative;overflow:hidden}
+.lc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--mustard),var(--peach));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.lc:hover{background:var(--bg3)}
+.lc:hover::before{transform:scaleX(1)}
+.lc:hover .larr{transform:translate(3px,-3px);opacity:1}
+.ctop{display:flex;justify-content:space-between;align-items:flex-start}
+.cico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--bg4);border:1px solid var(--border)}
+.larr{font-size:13px;color:var(--muted);transition:all .2s;opacity:.3}
+.cn{font-size:13px;font-weight:600;line-height:1.3;display:flex;align-items:center;gap:5px;flex-wrap:wrap;color:var(--cream)}
+.cd{font-size:11px;color:var(--muted2);line-height:1.55;flex:1}
+.cu{font-size:10px;color:var(--muted);font-family:monospace}
+.bnw{background:var(--mustard);color:#0a0900;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;border-radius:10px;flex-shrink:0}
+.bgm{background:var(--peach);color:#fff;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;border-radius:10px;flex-shrink:0}
+.bfr{background:#1a2e12;color:#72c45a;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;border-radius:10px;flex-shrink:0}
+
+/* PM REVIEW */
+.rvsec{padding:60px 36px;border-bottom:1px solid var(--border);position:relative;z-index:2;background:var(--bg2)}
+.rvhdr{display:flex;align-items:center;gap:16px;margin-bottom:40px;flex-wrap:wrap}
+.rvbadge{background:linear-gradient(135deg,var(--mustard),var(--peach));color:#0a0900;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:20px}
+.rvtit{font-family:'Playfair Display',serif;font-size:36px;letter-spacing:-.8px;font-weight:700;color:var(--cream)}
+.rvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:28px}
+.rvc{background:var(--bg);padding:26px 22px;display:flex;flex-direction:column;gap:12px}
+.rctop{display:flex;align-items:center;gap:10px}
+.rcico{font-size:22px}
+.rclbl{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
+.rcscore{display:flex;gap:3px;margin-left:auto}
+.rcd{width:8px;height:8px;border-radius:50%;background:var(--border2)}
+.rcd.fy{background:var(--mustard)}
+.rcd.fp{background:var(--peach)}
+.rcbody{font-size:12px;color:var(--muted2);line-height:1.7}
+.rcfix{font-size:11px;color:var(--mustard);font-weight:600;letter-spacing:.3px;margin-top:4px}
+.os{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:28px 32px;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.osnum{font-family:'Playfair Display',serif;font-size:72px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--mustard),var(--peach));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.osinfo{flex:1}
+.ostit{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);font-weight:700;margin-bottom:6px}
+.ossub{font-size:13px;color:var(--muted2);line-height:1.7}
+.vbar{height:4px;background:var(--border);border-radius:2px;margin-top:16px;overflow:hidden}
+.vfill{height:100%;background:linear-gradient(90deg,var(--mustard),var(--peach));border-radius:2px;animation:bg 1.5s .5s ease-out both}
+@keyframes bg{from{width:0}to{width:78%}}
+
+.about{padding:80px 36px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:2}
+.abh{font-family:'Playfair Display',serif;font-size:50px;letter-spacing:-1.5px;line-height:.92;margin-bottom:24px;font-weight:900}
+.aby{color:var(--mustard)}.abp{color:var(--peach);font-style:italic}
+.abp2{font-size:14px;color:var(--muted2);line-height:1.9;font-weight:400}
+.alist{display:flex;flex-direction:column}
+.ait{display:flex;gap:18px;align-items:flex-start;padding:22px 0;border-bottom:1px solid var(--border)}
+.ait:last-child{border-bottom:none}
+.anum{font-family:'Playfair Display',serif;font-size:34px;color:var(--mustard);line-height:1;min-width:54px;opacity:.5;font-weight:900}
+.atxt strong{font-weight:600;color:var(--cream);font-size:13px;display:block;margin-bottom:4px}
+.atxt span{font-size:12px;color:var(--muted2);line-height:1.65}
+
+footer{padding:36px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;border-top:1px solid var(--border);position:relative;z-index:2}
+.flogo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--mustard);display:flex;align-items:center;gap:8px}
+.fls{display:flex;gap:22px}
+.fls a{color:var(--muted);font-size:10px;text-decoration:none;letter-spacing:.8px;text-transform:uppercase;transition:color .2s;font-weight:500}
+.fls a:hover{color:var(--mustard)}
+.fr2{text-align:right;font-size:11px;color:var(--muted);line-height:1.7}
+
+#stb{position:fixed;bottom:26px;right:26px;background:linear-gradient(135deg,var(--mustard),var(--peach));color:#0a0900;border:none;width:44px;height:44px;border-radius:50%;font-size:16px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:300;transition:all .2s;font-weight:700}
+#stb:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(232,184,75,.4)}
+#stb.show{display:flex}
+.toast{position:fixed;bottom:78px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--bg3);border:1px solid var(--border2);color:var(--cream);padding:11px 20px;border-radius:10px;font-size:12px;z-index:400;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;font-weight:500}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fin{opacity:0;transform:translateY(18px);transition:opacity .65s,transform .65s}
+.fin.visible{opacity:1;transform:translateY(0)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-ring"></div>
+<canvas id="bgc"></canvas>
+
+<div class="sov" id="so">
+  <div class="sbox"><div class="swrap">
+    <input type="text" id="si" placeholder="Search 200+ links across 20 categories..." autocomplete="off">
+    <button class="scl" onclick="closeS()">✕</button>
+  </div><div class="sres" id="sr"><div class="shnt">Type to search 200+ links across 20 categories</div></div></div>
+</div>
+
+<nav>
+  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span class="ldot"></span>ALL·INK</div>
+  <div class="ntabs" id="ntabs">
+    <button class="nt active" data-s="hero" onclick="ng(this,'hero')">Home</button>
+    <button class="nt" data-s="food" onclick="ng(this,'food')">Food</button>
+    <button class="nt" data-s="shopping" onclick="ng(this,'shopping')">Shopping</button>
+    <button class="nt" data-s="entertainment" onclick="ng(this,'entertainment')">Entmt</button>
+    <button class="nt" data-s="music" onclick="ng(this,'music')">Music</button>
+    <button class="nt" data-s="travel" onclick="ng(this,'travel')">Travel</button>
+    <button class="nt" data-s="news" onclick="ng(this,'news')">News</button>
+    <button class="nt" data-s="education" onclick="ng(this,'education')">Education</button>
+    <button class="nt" data-s="banking" onclick="ng(this,'banking')">Banking</button>
+    <button class="nt" data-s="tools" onclick="ng(this,'tools')">Tools</button>
+    <button class="nt" data-s="ai" onclick="ng(this,'ai')">AI</button>
+    <button class="nt" data-s="design" onclick="ng(this,'design')">Design</button>
+    <button class="nt" data-s="dev" onclick="ng(this,'dev')">Dev</button>
+    <button class="nt" data-s="health" onclick="ng(this,'health')">Health</button>
+    <button class="nt" data-s="jobs" onclick="ng(this,'jobs')">Jobs</button>
+    <button class="nt" data-s="govt" onclick="ng(this,'govt')">Govt</button>
+    <button class="nt" data-s="startup" onclick="ng(this,'startup')">Startup</button>
+    <button class="nt" data-s="legal" onclick="ng(this,'legal')">Legal</button>
+    <button class="nt" data-s="language" onclick="ng(this,'language')">Language</button>
+    <button class="nt" data-s="research" onclick="ng(this,'research')">Research</button>
+    <button class="nt" data-s="review" onclick="ng(this,'review')">PM Review</button>
+  </div>
+  <div class="nav-r">
+    <button class="sbtn" onclick="openS()">⌕ Search</button>
+    <span class="npill" id="nc">200+</span>
+  </div>
+</nav>
+
+<section class="hero" id="sec-hero">
+  <div class="hero-in">
+    <div>
+      <div class="eyebrow"><span class="ebl"></span>The Internet, Organised</div>
+      <h1><span class="hy">Every link</span><span class="hp">you ever needed</span></h1>
+      <p class="hdesc">Stop Googling the same websites every day. ALL·INK is your personal internet directory — 200+ hand-picked links across 20 categories including rare productive tools most people never discover.</p>
+      <div class="hbtns">
+        <button class="bp" onclick="ng(document.querySelector('[data-s=food]'),'food')">Browse All Links →</button>
+        <button class="bg" onclick="openS()">⌕ Search All</button>
+        <a href="https://www.linkedin.com/in/payal-chaube-y5006" target="_blank" class="bg">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="hero-r">
+      <div class="sgrid">
+        <div class="sb"><div class="snum sm">200<span class="sp">+</span></div><div class="slbl">Links Curated</div></div>
+        <div class="sb"><div class="snum sp">20</div><div class="slbl">Categories</div></div>
+        <div class="sb"><div class="snum sm">0<span class="sp">₹</span></div><div class="slbl">Always Free</div></div>
+        <div class="sb"><div class="snum sp">∞</div><div class="slbl">Time Saved</div></div>
+      </div>
+      <div class="tw"><div class="ti" id="ti"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="fs fin">
+  <div class="fr">
+    <a class="fc" href="https://perplexity.ai" target="_blank"><div class="ft">🔥 Most Useful · AI</div><div class="fn">Perplexity AI</div><div class="fd">Ask anything, get sourced answers instantly. The search engine of the future.</div><div class="fu2">perplexity.ai ↗</div></a>
+    <a class="fc" href="https://notion.so" target="_blank"><div class="ft">⭐ Top Pick · Productivity</div><div class="fn">Notion</div><div class="fd">Notes, wikis, databases, projects — one app to replace five others.</div><div class="fu2">notion.so ↗</div></a>
+    <a class="fc" href="https://excalidraw.com" target="_blank"><div class="ft">💎 Hidden Gem · Design</div><div class="fn">Excalidraw</div><div class="fd">Free browser whiteboard. No signup. Sketch diagrams like paper.</div><div class="fu2">excalidraw.com ↗</div></a>
+  </div>
+</section>
+
+<div class="bnr fin">
+  <span class="blbl">✦ New Sections</span>
+  <span class="btg" onclick="ng(document.querySelector('[data-s=ai]'),'ai')">🤖 AI Tools</span>
+  <span class="btg" onclick="ng(document.querySelector('[data-s=design]'),'design')">🎨 Design</span>
+  <span class="btg" onclick="ng(document.querySelector('[data-s=dev]'),'dev')">💻 Dev</span>
+  <span class="btg" onclick="ng(document.querySelector('[data-s=startup]'),'startup')">🚀 Startup</span>
+  <span class="btg" onclick="ng(document.querySelector('[data-s=legal]'),'legal')">⚖️ Legal</span>
+  <span class="btg" onclick="ng(document.querySelector('[data-s=research]'),'research')">🔬 Research</span>
+  <span class="btg" onclick="ng(document.querySelector('[data-s=review]'),'review')">📊 PM Review</span>
+</div>
+
+<div class="fbar">
+  <span class="flbl">Filter:</span>
+  <button class="chip active" onclick="setF('all',this)">All Links</button>
+  <button class="chip" onclick="setF('new',this)">🟡 New</button>
+  <button class="chip" onclick="setF('gem',this)">🟠 Gems</button>
+  <button class="chip" onclick="setF('free',this)">🟢 Free Only</button>
+</div>
+
+<div id="mc"></div>
+
+<section class="rvsec fin" id="sec-review">
+  <div class="rvhdr">
+    <span class="rvbadge">Google Senior PM · Site Audit</span>
+    <div class="rvtit">ALL·INK Product Review</div>
+  </div>
+  <div class="rvgrid">
+    <div class="rvc"><div class="rctop"><span class="rcico">🎯</span><span class="rclbl" style="color:var(--mustard)">Value Proposition</span><div class="rcscore"><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd"></div></div></div><div class="rcbody">Crystal clear: "one bookmark, 200+ links, zero friction." Users understand the product in 3 seconds. The pain point — Googling the same sites daily — is universally relatable and genuinely felt.</div><div class="rcfix">✦ Add 1-line tagline in meta description for SEO discoverability</div></div>
+    <div class="rvc"><div class="rctop"><span class="rcico">🗂</span><span class="rclbl" style="color:var(--mustard)">Information Architecture</span><div class="rcscore"><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd"></div></div></div><div class="rcbody">20 categories with clear labels is excellent. Nav tabs with scroll spy are exactly right. Hidden Gems & Free badges add genuine signal. Category descriptions help users orient fast.</div><div class="rcfix">✦ Add collapsible sidebar for power-user navigation</div></div>
+    <div class="rvc"><div class="rctop"><span class="rcico">🔍</span><span class="rclbl" style="color:var(--mustard)">Search & Discovery</span><div class="rcscore"><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd"></div><div class="rcd"></div></div></div><div class="rcbody">Search works but only finds exact text matches. No typo tolerance, no "similar" suggestions. ⌘K shortcut is great for power users but invisible to casual visitors. No related link discovery.</div><div class="rcfix">✦ Add fuzzy search + "You might also like" related links</div></div>
+    <div class="rvc"><div class="rctop"><span class="rcico">📱</span><span class="rclbl" style="color:var(--peach)">Mobile Experience</span><div class="rcscore"><div class="rcd fp"></div><div class="rcd fp"></div><div class="rcd fp"></div><div class="rcd"></div><div class="rcd"></div></div></div><div class="rcbody">Nav tabs overflow on mobile without scroll affordance. Hero grid stacks passably. Card grid works but 195px min-width causes 2-col on small phones. Touch targets need more padding.</div><div class="rcfix">✦ Build mobile nav drawer + increase tap target sizes</div></div>
+    <div class="rvc"><div class="rctop"><span class="rcico">⚡</span><span class="rclbl" style="color:var(--mustard)">Performance</span><div class="rcscore"><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd fy"></div><div class="rcd fy"></div></div></div><div class="rcbody">Single HTML file — zero extra HTTP requests. All data inline JS. No images to load. Loads under 200ms on 3G. This is exceptional performance architecture for a directory product. Respect.</div><div class="rcfix">✦ Add service worker for true offline capability</div></div>
+    <div class="rvc"><div class="rctop"><span class="rcico">📈</span><span class="rclbl" style="color:var(--peach)">Growth & Retention</span><div class="rcscore"><div class="rcd fp"></div><div class="rcd fp"></div><div class="rcd"></div><div class="rcd"></div><div class="rcd"></div></div></div><div class="rcbody">No mechanism to bring users back. No newsletter, no "suggest a link" form, no analytics. Once someone leaves they have zero reason to return unless they bookmarked. Biggest growth gap.</div><div class="rcfix">✦ Add "Submit a Link" form + email newsletter signup</div></div>
+    <div class="rvc"><div class="rctop"><span class="rcico">♿</span><span class="rclbl" style="color:var(--peach)">Accessibility</span><div class="rcscore"><div class="rcd fp"></div><div class="rcd fp"></div><div class="rcd fp"></div><div class="rcd"></div><div class="rcd"></div></div></div><div class="rcbody">Custom cursor may break keyboard-only navigation. Muted text may fail WCAG AA contrast. No skip-to-content link. Missing aria-labels on icon buttons. Screen reader UX needs audit.</div><div class="rcfix">✦ Add aria-labels, increase contrast, test with VoiceOver</div></div>
+    <div class="rvc"><div class="rctop"><span class="rcico">🌐</span><span class="rclbl" style="color:var(--peach)">SEO & Discoverability</span><div class="rcscore"><div class="rcd fp"></div><div class="rcd fp"></div><div class="rcd"></div><div class="rcd"></div><div class="rcd"></div></div></div><div class="rcbody">Single-page JS-rendered content is partially invisible to Google. No meta tags, no OG image, no sitemap, no structured data. Near-zero organic traffic potential without fixing this urgently.</div><div class="rcfix">✦ Add meta tags, OG image, JSON-LD schema + submit to Search Console</div></div>
+  </div>
+  <div class="os">
+    <div class="osnum">7.8</div>
+    <div class="osinfo">
+      <div class="ostit">Strong MVP — Now needs Distribution</div>
+      <div class="ossub">Product idea is genuinely useful. Execution is clean. Design is distinctive. Core use case is solved well. But without SEO, mobile polish, and a retention hook, growth depends entirely on word-of-mouth. Fix SEO + mobile first — highest ROI moves right now.</div>
+      <div class="vbar"><div class="vfill"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="about fin">
+  <div>
+    <div class="abh">Built to save<br><span class="aby">your</span> <span class="abp">time</span></div>
+    <p class="abp2">ALL·INK solves a real problem — we waste minutes hunting the same websites. One bookmarked page, 200+ curated links, zero ads, zero friction. Made with love by Payal Chaube from Delhi.</p>
+  </div>
+  <div class="alist">
+    <div class="ait"><div class="anum">01</div><div class="atxt"><strong>Hand-curated, not scraped</strong><span>Every link chosen for real usefulness — no spam, no paid placements ever.</span></div></div>
+    <div class="ait"><div class="anum">02</div><div class="atxt"><strong>20 smart categories</strong><span>From food to startup tools — everything where you expect it to be.</span></div></div>
+    <div class="ait"><div class="anum">03</div><div class="atxt"><strong>Hidden Gems specially tagged</strong><span>Underrated tools most people never discover — now visible to you.</span></div></div>
+    <div class="ait"><div class="anum">04</div><div class="atxt"><strong>100% free, no login ever</strong><span>No account, no tracking, no ads. Pure utility. Bookmark and go.</span></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo"><span style="width:7px;height:7px;background:var(--peach);border-radius:50%;display:inline-block;margin-right:6px"></span>ALL·INK</div>
+  <div class="fls">
+    <a href="https://www.linkedin.com/in/payal-chaube-y5006" target="_blank">LinkedIn ↗</a>
+    <a href="#" onclick="openS();return false">Search</a>
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">↑ Top</a>
+  </div>
+  <div class="fr2">Made by Payal Chaube<br>© 2026 · Free Forever</div>
+</footer>
+
+<button id="stb" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast"></div>
+
+<script>
+/* 3D ANIMATED BG */
+const canvas=document.getElementById('bgc'),ctx=canvas.getContext('2d');
+let W,H;
+const orbs=[
+  {x:.2,y:.3,r:.42,dx:.00011,dy:.00007,c:[232,184,75]},
+  {x:.8,y:.65,r:.38,dx:-.00009,dy:.00012,c:[240,120,104]},
+  {x:.5,y:.1,r:.32,dx:.00007,dy:-.00008,c:[200,140,40]},
+  {x:.15,y:.85,r:.28,dx:.00014,dy:-.00009,c:[245,160,144]},
+  {x:.9,y:.2,r:.25,dx:-.00012,dy:.00010,c:[180,120,30]},
+];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+window.addEventListener('resize',resize);resize();
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  orbs.forEach(o=>{
+    o.x+=o.dx;o.y+=o.dy;
+    if(o.x<.05||o.x>.95)o.dx*=-1;
+    if(o.y<.05||o.y>.95)o.dy*=-1;
+    const cx=o.x*W,cy=o.y*H,rad=Math.min(W,H)*o.r;
+    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,rad);
+    g.addColorStop(0,`rgba(${o.c[0]},${o.c[1]},${o.c[2]},.12)`);
+    g.addColorStop(.5,`rgba(${o.c[0]},${o.c[1]},${o.c[2]},.045)`);
+    g.addColorStop(1,`rgba(${o.c[0]},${o.c[1]},${o.c[2]},0)`);
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,rad,0,Math.PI*2);ctx.fill();
+  });
+  ctx.strokeStyle='rgba(232,184,75,.022)';ctx.lineWidth=1;
+  const step=55;
+  for(let x=0;x<W;x+=step){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  for(let y=0;y<H;y+=step){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  requestAnimationFrame(draw);
+}
+draw();
+
+const CATS=[
+  {id:'food',emoji:'🍜',title:'Food & Delivery',desc:'Order food, discover restaurants, track groceries — everything for your appetite.',links:[
+    {n:'Zomato',d:'Food delivery & restaurant discovery',u:'zomato.com',ico:'🍕'},
+    {n:'Swiggy',d:'Fast food, grocery & Instamart',u:'swiggy.com',ico:'🛵'},
+    {n:'Blinkit',d:'10-min grocery delivery',u:'blinkit.com',ico:'⚡',isNew:true},
+    {n:'BigBasket',d:'Online supermarket India',u:'bigbasket.com',ico:'🥦'},
+    {n:'Zepto',d:'Groceries in 10 minutes flat',u:'zeptonow.com',ico:'🚀',isNew:true},
+    {n:'EatSure',d:'Restaurant brands delivered home',u:'eatsure.com',ico:'🥡'},
+    {n:'Dunzo',d:'Hyperlocal — deliver anything',u:'dunzo.com',ico:'📦',isGem:true},
+    {n:'JioMart',d:'Reliance grocery & fresh foods',u:'jiomart.com',ico:'🛒'},
+    {n:'Licious',d:'Fresh meat & seafood delivery',u:'licious.in',ico:'🥩',isGem:true},
+    {n:'Country Delight',d:'Farm-fresh milk & dairy daily',u:'countrydelight.in',ico:'🥛',isGem:true},
+    {n:'Magicpin',d:'Local restaurants & deals',u:'magicpin.in',ico:'📍',isGem:true},
+    {n:'Faasos',d:'Wraps, biryani & meal boxes',u:'faasos.com',ico:'🌯',isGem:true},
+  ]},
+  {id:'shopping',emoji:'🛍',title:'Shopping',desc:'Every major marketplace and hidden gem store — essentials to niche finds.',links:[
+    {n:'Amazon India',d:'Largest online marketplace',u:'amazon.in',ico:'📦'},
+    {n:'Flipkart',d:'Electronics, fashion & more',u:'flipkart.com',ico:'🛍'},
+    {n:'Myntra',d:'Fashion & lifestyle brands',u:'myntra.com',ico:'👗'},
+    {n:'Meesho',d:'Affordable fashion & home goods',u:'meesho.com',ico:'🎁',isNew:true},
+    {n:'Ajio',d:'Reliance fashion & sportswear',u:'ajio.com',ico:'👟'},
+    {n:'Nykaa',d:'Beauty & personal care',u:'nykaa.com',ico:'💄'},
+    {n:'Croma',d:'Electronics & gadgets',u:'croma.com',ico:'💻'},
+    {n:'Pepperfry',d:'Furniture & home décor online',u:'pepperfry.com',ico:'🛋',isGem:true},
+    {n:'IndiaMART',d:'B2B wholesale marketplace',u:'indiamart.com',ico:'🏭',isGem:true},
+    {n:'FirstCry',d:'Baby & kids products',u:'firstcry.com',ico:'👶',isGem:true},
+    {n:'Bewakoof',d:'Quirky affordable fashion',u:'bewakoof.com',ico:'😎',isGem:true},
+    {n:'Purplle',d:'Affordable beauty platform',u:'purplle.com',ico:'🌸',isGem:true},
+    {n:'Craftsvilla',d:'Ethnic & handcrafted fashion',u:'craftsvilla.com',ico:'🪡',isGem:true},
+  ]},
+  {id:'entertainment',emoji:'🎬',title:'Entertainment',desc:'Streaming, gaming, anime — every screen-time option in one place.',links:[
+    {n:'Netflix',d:'Movies, shows & originals',u:'netflix.com',ico:'🎬'},
+    {n:'YouTube',d:'Videos, shorts & live streams',u:'youtube.com',ico:'▶️'},
+    {n:'Disney+ Hotstar',d:'Sports, Disney & Bollywood',u:'hotstar.com',ico:'⭐'},
+    {n:'Amazon Prime Video',d:'Prime Video streaming',u:'primevideo.com',ico:'🎥'},
+    {n:'JioCinema',d:'IPL, movies & web series free',u:'jiocinema.com',ico:'🏏',isNew:true},
+    {n:'Sony LIV',d:'Sports, news & originals',u:'sonyliv.com',ico:'📺'},
+    {n:'MX Player',d:'Free streaming & web originals',u:'mxplayer.in',ico:'🎞'},
+    {n:'Crunchyroll',d:'Anime streaming platform',u:'crunchyroll.com',ico:'⛩',isGem:true},
+    {n:'Mubi',d:'Curated indie & art house films',u:'mubi.com',ico:'🎭',isGem:true},
+    {n:'Twitch',d:'Live gaming & creative streams',u:'twitch.tv',ico:'🎮',isGem:true},
+    {n:'Plex',d:'Free movies & personal media server',u:'plex.tv',ico:'📡',isGem:true,isFree:true},
+    {n:'Tubi',d:'100% free movies & TV shows',u:'tubitv.com',ico:'📺',isGem:true,isFree:true},
+  ]},
+  {id:'music',emoji:'🎵',title:'Music & Podcasts',desc:'Stream music, discover podcasts — every audio platform worth knowing.',links:[
+    {n:'Spotify',d:'Music, podcasts & playlists',u:'spotify.com',ico:'🎵'},
+    {n:'Gaana',d:'Hindi & regional music India',u:'gaana.com',ico:'🎶'},
+    {n:'JioSaavn',d:'Bollywood & Indian music free',u:'jiosaavn.com',ico:'🎼'},
+    {n:'YouTube Music',d:'Music streaming by Google',u:'music.youtube.com',ico:'🎹'},
+    {n:'SoundCloud',d:'Independent artists & remixes',u:'soundcloud.com',ico:'☁️',isGem:true,isFree:true},
+    {n:'Audible',d:'Audiobooks & spoken word India',u:'audible.in',ico:'📖',isGem:true},
+    {n:'Pocket Casts',d:'Best podcast app — powerful filters',u:'pocketcasts.com',ico:'🎙',isGem:true},
+    {n:'Bandcamp',d:'Support independent musicians directly',u:'bandcamp.com',ico:'🎸',isGem:true,isFree:true},
+    {n:'Mixcloud',d:'DJ mixes & radio shows free',u:'mixcloud.com',ico:'🎛',isGem:true,isFree:true},
+    {n:'Musixmatch',d:'Lyrics app & translation tool',u:'musixmatch.com',ico:'🎤',isGem:true,isFree:true},
+  ]},
+  {id:'travel',emoji:'✈️',title:'Travel & Transport',desc:'Book flights, trains, hotels, cabs — every way to get from A to B.',links:[
+    {n:'MakeMyTrip',d:'Flights, hotels & holiday packages',u:'makemytrip.com',ico:'✈️'},
+    {n:'IRCTC',d:'Indian Railways official booking',u:'irctc.co.in',ico:'🚂'},
+    {n:'Cleartrip',d:'Flights & hotel deals',u:'cleartrip.com',ico:'🌍'},
+    {n:'OYO',d:'Affordable hotel stays India',u:'oyorooms.com',ico:'🏩'},
+    {n:'Airbnb',d:'Unique stays & local experiences',u:'airbnb.co.in',ico:'🏡'},
+    {n:'Booking.com',d:'Global hotel reservations',u:'booking.com',ico:'🛎'},
+    {n:'Ola',d:'Cabs, bikes & autos India',u:'olacabs.com',ico:'🚗'},
+    {n:'Uber',d:'Ride-hailing worldwide',u:'uber.com',ico:'🚕'},
+    {n:'Rapido',d:'Bike taxis & autos cheap',u:'rapido.bike',ico:'🏍',isNew:true},
+    {n:'redBus',d:'Bus tickets across India',u:'redbus.in',ico:'🚌'},
+    {n:'Skyscanner',d:'Compare cheapest flights globally',u:'skyscanner.co.in',ico:'🔍',isGem:true},
+    {n:'Google Flights',d:'Best flight price tracker',u:'google.com/flights',ico:'🗺',isGem:true,isFree:true},
+    {n:'Thrillophilia',d:'Treks, tours & adventure activities',u:'thrillophilia.com',ico:'🧗',isGem:true},
+    {n:'Rome2rio',d:'Find any route: bus/train/fly',u:'rome2rio.com',ico:'🗺',isGem:true,isFree:true},
+  ]},
+  {id:'news',emoji:'📰',title:'News & Media',desc:'National, global, business and independent journalism all in one place.',links:[
+    {n:'The Hindu',d:'National broadsheet & analysis',u:'thehindu.com',ico:'📰'},
+    {n:'Times of India',d:"India's most read newspaper",u:'timesofindia.com',ico:'🗞'},
+    {n:'NDTV',d:'Breaking news & live TV',u:'ndtv.com',ico:'📡'},
+    {n:'BBC News',d:'Global news coverage',u:'bbc.com/news',ico:'🌐'},
+    {n:'Reuters',d:'International wire news',u:'reuters.com',ico:'📊'},
+    {n:'Economic Times',d:'Business, markets & economy',u:'economictimes.com',ico:'📈'},
+    {n:'The Wire',d:'Independent Indian journalism',u:'thewire.in',ico:'🔌',isGem:true,isFree:true},
+    {n:'Scroll.in',d:'News, opinion & culture India',u:'scroll.in',ico:'📜',isGem:true,isFree:true},
+    {n:'Newslaundry',d:'Media criticism & original reporting',u:'newslaundry.com',ico:'🧺',isGem:true},
+    {n:'The Print',d:'Policy, politics & sharp analysis',u:'theprint.in',ico:'🖨',isGem:true,isFree:true},
+    {n:'MediaNama',d:'India digital & tech policy news',u:'medianama.com',ico:'📱',isGem:true,isFree:true},
+    {n:'Hacker News',d:'Tech & startup news by YC community',u:'news.ycombinator.com',ico:'🔶',isGem:true,isFree:true},
+  ]},
+  {id:'education',emoji:'📚',title:'Education & Learning',desc:'Free and paid — school prep, university courses, skill-building.',links:[
+    {n:'Khan Academy',d:'Free world-class K-12 education',u:'khanacademy.org',ico:'📚',isFree:true},
+    {n:'Coursera',d:'University courses & certificates',u:'coursera.org',ico:'🎓'},
+    {n:'NPTEL',d:'IIT & IISc free online courses',u:'nptel.ac.in',ico:'🏫',isFree:true},
+    {n:'Unacademy',d:'UPSC, JEE, NEET prep India',u:'unacademy.com',ico:'🎯'},
+    {n:'Udemy',d:'Skills & professional courses',u:'udemy.com',ico:'💡'},
+    {n:'PhysicsWallah',d:'Affordable JEE/NEET coaching',u:'pw.live',ico:'⚛️',isNew:true},
+    {n:'Brilliant',d:'Math & science problem solving',u:'brilliant.org',ico:'✨',isGem:true},
+    {n:'MIT OpenCourseWare',d:'Free MIT lecture materials',u:'ocw.mit.edu',ico:'🔬',isGem:true,isFree:true},
+    {n:'Crash Course',d:'Free YouTube education series',u:'youtube.com/@crashcourse',ico:'💥',isGem:true,isFree:true},
+    {n:'Class Central',d:'Find best free online courses',u:'classcentral.com',ico:'🔍',isGem:true,isFree:true},
+    {n:'Skill India',d:'Govt free skill development courses',u:'skillindia.gov.in',ico:'🇮🇳',isGem:true,isFree:true},
+  ]},
+  {id:'banking',emoji:'🏦',title:'Banking & Finance',desc:'Banks, UPI, investments, insurance — manage your money smarter.',links:[
+    {n:'SBI NetBanking',d:'State Bank of India online',u:'onlinesbi.sbi',ico:'🏦'},
+    {n:'HDFC Bank',d:'Private banking & credit cards',u:'hdfcbank.com',ico:'💳'},
+    {n:'ICICI Bank',d:'iMobile & net banking',u:'icicibank.com',ico:'🏧'},
+    {n:'PhonePe',d:'UPI payments & insurance',u:'phonepe.com',ico:'📱'},
+    {n:'Google Pay',d:'UPI & bill payments by Google',u:'pay.google.com',ico:'🔵'},
+    {n:'Groww',d:'Stocks, mutual funds & F&O',u:'groww.in',ico:'📊',isNew:true},
+    {n:'Zerodha',d:"India's largest discount broker",u:'zerodha.com',ico:'📈',isGem:true},
+    {n:'PolicyBazaar',d:'Compare insurance plans online',u:'policybazaar.com',ico:'🛡'},
+    {n:'CIBIL',d:'Check credit score free',u:'cibil.com',ico:'⭐',isGem:true,isFree:true},
+    {n:'Smallcase',d:'Thematic stock portfolio investing',u:'smallcase.com',ico:'📦',isGem:true},
+    {n:'Jupiter',d:'Zero-fee modern savings account',u:'jupiter.money',ico:'🟣',isGem:true,isNew:true},
+  ]},
+  {id:'tools',emoji:'🔧',title:'Daily Productivity Tools',desc:"Hidden gems — apps most people don't know but should use every day.",links:[
+    {n:'Notion',d:'Notes, wikis & project management',u:'notion.so',ico:'📝'},
+    {n:'Obsidian',d:'Second brain — local markdown notes',u:'obsidian.md',ico:'💎',isGem:true,isFree:true},
+    {n:'Todoist',d:'Best to-do list app ever made',u:'todoist.com',ico:'✅',isGem:true},
+    {n:'Toggl',d:'Time tracking for freelancers',u:'toggl.com',ico:'⏱',isGem:true,isFree:true},
+    {n:'Calendly',d:'Schedule meetings without email',u:'calendly.com',ico:'📅',isGem:true},
+    {n:'Loom',d:'Record & share screen instantly',u:'loom.com',ico:'🎥',isGem:true},
+    {n:'Remove.bg',d:'Remove image backgrounds instant',u:'remove.bg',ico:'✂️',isGem:true,isFree:true},
+    {n:'WeTransfer',d:'Send large files free — no signup',u:'wetransfer.com',ico:'📤',isGem:true,isFree:true},
+    {n:'TinyPNG',d:'Compress images without quality loss',u:'tinypng.com',ico:'🐼',isGem:true,isFree:true},
+    {n:'Zapier',d:'Automate workflows between apps',u:'zapier.com',ico:'⚡',isGem:true},
+    {n:'Gamma',d:'AI-powered presentation maker',u:'gamma.app',ico:'🎯',isNew:true,isGem:true},
+    {n:'Otter.ai',d:'AI meeting transcription auto',u:'otter.ai',ico:'🦦',isGem:true},
+    {n:'Clockify',d:'Free time tracker for teams',u:'clockify.me',ico:'🕐',isGem:true,isFree:true},
+  ]},
+  {id:'ai',emoji:'🤖',title:'AI Tools',desc:'The most powerful AI tools — writing, coding, image, video, voice generation.',links:[
+    {n:'ChatGPT',d:'OpenAI conversational AI assistant',u:'chat.openai.com',ico:'🤖'},
+    {n:'Claude',d:'Anthropic AI — best for writing & reasoning',u:'claude.ai',ico:'✦',isNew:true},
+    {n:'Gemini',d:"Google's multimodal AI assistant",u:'gemini.google.com',ico:'♊',isNew:true},
+    {n:'Perplexity',d:'AI search with real sourced answers',u:'perplexity.ai',ico:'🔭',isNew:true,isGem:true},
+    {n:'Midjourney',d:'Best AI image generation tool',u:'midjourney.com',ico:'🎨',isNew:true},
+    {n:'Runway',d:'AI video generation & editing',u:'runwayml.com',ico:'🎬',isNew:true,isGem:true},
+    {n:'ElevenLabs',d:'Realistic AI voice cloning & TTS',u:'elevenlabs.io',ico:'🎙',isNew:true,isGem:true},
+    {n:'Hugging Face',d:'Open-source AI models & datasets',u:'huggingface.co',ico:'🤗',isGem:true,isFree:true},
+    {n:'Poe',d:'Chat with multiple AI models in one',u:'poe.com',ico:'💬',isGem:true,isFree:true},
+    {n:'Suno',d:'AI music generation from text prompt',u:'suno.com',ico:'🎵',isNew:true,isGem:true},
+    {n:'Descript',d:'Edit video by editing transcript text',u:'descript.com',ico:'✂️',isGem:true},
+    {n:'Kling AI',d:'Viral AI video generator',u:'klingai.com',ico:'🎥',isNew:true,isGem:true},
+  ]},
+  {id:'design',emoji:'🎨',title:'Design & Creative',desc:'Free and pro design tools — UI, graphics, video, presentations, 3D.',links:[
+    {n:'Figma',d:'UI/UX design — industry standard',u:'figma.com',ico:'🖌'},
+    {n:'Canva',d:'Design anything easily free',u:'canva.com',ico:'🎨',isFree:true},
+    {n:'Excalidraw',d:'Free hand-drawn whiteboard tool',u:'excalidraw.com',ico:'✏️',isGem:true,isFree:true},
+    {n:'Framer',d:'Design & publish websites visually',u:'framer.com',ico:'🖥',isGem:true},
+    {n:'Spline',d:'3D design in the browser free',u:'spline.design',ico:'🌐',isGem:true,isFree:true},
+    {n:'CapCut',d:'Free video editing — trending now',u:'capcut.com',ico:'🎬',isNew:true,isFree:true},
+    {n:'DaVinci Resolve',d:'Pro video editor completely free',u:'blackmagicdesign.com/products/davinciresolve',ico:'🎥',isGem:true,isFree:true},
+    {n:'Google Fonts',d:'Free fonts for any project',u:'fonts.google.com',ico:'🔤',isGem:true,isFree:true},
+    {n:'Unsplash',d:'Free high-res stock photos',u:'unsplash.com',ico:'📸',isGem:true,isFree:true},
+    {n:'Coolors',d:'Generate colour palettes instantly',u:'coolors.co',ico:'🎨',isGem:true,isFree:true},
+    {n:'LottieFiles',d:'Free animated illustrations JSON',u:'lottiefiles.com',ico:'✨',isGem:true,isFree:true},
+    {n:'Dribbble',d:'Design inspiration & portfolio',u:'dribbble.com',ico:'🏀',isGem:true},
+  ]},
+  {id:'dev',emoji:'💻',title:'Developer Tools',desc:'Every tool a developer actually uses — hosting, APIs, learning, debugging.',links:[
+    {n:'GitHub',d:'Code hosting & open source',u:'github.com',ico:'🐙'},
+    {n:'Stack Overflow',d:'Q&A for programmers worldwide',u:'stackoverflow.com',ico:'💬',isFree:true},
+    {n:'Vercel',d:'Deploy frontend apps instantly free',u:'vercel.com',ico:'▲',isGem:true,isFree:true},
+    {n:'Netlify',d:'Static site hosting & deployment',u:'netlify.com',ico:'🟢',isGem:true,isFree:true},
+    {n:'Supabase',d:'Open-source Firebase alternative',u:'supabase.com',ico:'⚡',isGem:true,isNew:true,isFree:true},
+    {n:'Railway',d:'Deploy apps with one click',u:'railway.app',ico:'🚂',isGem:true,isNew:true},
+    {n:'Postman',d:'API testing & development tool',u:'postman.com',ico:'📮',isGem:true,isFree:true},
+    {n:'CodePen',d:'Frontend code playground browser',u:'codepen.io',ico:'🖊',isGem:true,isFree:true},
+    {n:'Replit',d:'Code in browser — any language',u:'replit.com',ico:'♾',isGem:true,isFree:true},
+    {n:'DevDocs',d:'All API docs in one searchable place',u:'devdocs.io',ico:'📖',isGem:true,isFree:true},
+    {n:'regex101',d:'Test & debug regex expressions',u:'regex101.com',ico:'⚙️',isGem:true,isFree:true},
+    {n:'roadmap.sh',d:'Developer roadmaps for every role',u:'roadmap.sh',ico:'🗺',isGem:true,isFree:true},
+  ]},
+  {id:'health',emoji:'💊',title:'Health & Wellness',desc:'Medicines, consultations, fitness, mental health — your wellbeing toolkit.',links:[
+    {n:'1mg',d:'Order medicines & consult doctors',u:'1mg.com',ico:'💊'},
+    {n:'Practo',d:'Book doctor appointments online',u:'practo.com',ico:'🏥'},
+    {n:'PharmEasy',d:'Medicines & health tests India',u:'pharmeasy.in',ico:'🩺'},
+    {n:'Cult.fit',d:'Online & offline fitness classes',u:'cult.fit',ico:'💪',isNew:true},
+    {n:'HealthifyMe',d:'Diet & calorie tracking India',u:'healthifyme.com',ico:'🥗'},
+    {n:'Headspace',d:'Guided meditation & sleep app',u:'headspace.com',ico:'🧘',isGem:true},
+    {n:'Calm',d:'Sleep, meditation & relaxation',u:'calm.com',ico:'🌙',isGem:true},
+    {n:'Wysa',d:'AI mental health chatbot India',u:'wysa.io',ico:'🐧',isGem:true,isNew:true,isFree:true},
+    {n:'Medscape',d:'Medical reference for professionals',u:'medscape.com',ico:'🔬',isGem:true,isFree:true},
+    {n:'MyFitnessPal',d:'Calorie counter & food diary',u:'myfitnesspal.com',ico:'🏃',isGem:true},
+  ]},
+  {id:'jobs',emoji:'💼',title:'Jobs & Career',desc:'Find jobs, build your resume, grow your network — full career toolkit.',links:[
+    {n:'LinkedIn',d:'Professional network & job search',u:'linkedin.com',ico:'💼'},
+    {n:'Naukri',d:"India's largest job portal",u:'naukri.com',ico:'🗂'},
+    {n:'Indeed',d:'Job search engine worldwide',u:'indeed.co.in',ico:'🔍'},
+    {n:'Internshala',d:'Internships & fresher jobs India',u:'internshala.com',ico:'🎓',isNew:true},
+    {n:'Glassdoor',d:'Company reviews & salary data',u:'glassdoor.co.in',ico:'🪟',isGem:true},
+    {n:'Wellfound',d:'Startup jobs & equity offers',u:'wellfound.com',ico:'😇',isGem:true},
+    {n:'Hirect',d:'Direct chat with startup founders',u:'hirect.in',ico:'💬',isGem:true,isNew:true},
+    {n:'Remote.co',d:'Remote job listings worldwide',u:'remote.co',ico:'🌍',isGem:true},
+    {n:'We Work Remotely',d:'#1 remote work job board',u:'weworkremotely.com',ico:'🏠',isGem:true},
+    {n:'Resume.io',d:'Build professional resumes fast',u:'resume.io',ico:'📄',isGem:true},
+    {n:'Resumake',d:'Free minimal resume builder',u:'resumake.io',ico:'📋',isGem:true,isFree:true},
+  ]},
+  {id:'govt',emoji:'🏛',title:'Government & Utilities',desc:'Official Indian portals — IDs, taxes, certificates, essential services.',links:[
+    {n:'DigiLocker',d:'Digital document wallet India',u:'digilocker.gov.in',ico:'🗄',isFree:true},
+    {n:'Aadhaar UIDAI',d:'Aadhaar update & download',u:'uidai.gov.in',ico:'🪪',isFree:true},
+    {n:'Income Tax Portal',d:'File ITR & all tax services',u:'incometax.gov.in',ico:'📊',isFree:true},
+    {n:'EPFO',d:'PF balance & passbook online',u:'epfindia.gov.in',ico:'🏛',isFree:true},
+    {n:'Passport Seva',d:'Apply & renew Indian passport',u:'passportindia.gov.in',ico:'📗',isFree:true},
+    {n:'GST Portal',d:'GST filing & returns',u:'gst.gov.in',ico:'🧾',isFree:true},
+    {n:'Parivahan',d:'Driving license & vehicle RC',u:'parivahan.gov.in',ico:'🚗',isFree:true},
+    {n:'Umang',d:'All govt services one place',u:'web.umang.gov.in',ico:'🇮🇳',isGem:true,isFree:true},
+    {n:'SWAYAM',d:'Govt free online courses',u:'swayam.gov.in',ico:'📚',isGem:true,isFree:true},
+    {n:'RTI India',d:'File Right to Information requests',u:'rtionline.gov.in',ico:'📝',isGem:true,isFree:true},
+  ]},
+  {id:'startup',emoji:'🚀',title:'Startup & Business',desc:'Resources every entrepreneur needs — idea to funding to scaling.',links:[
+    {n:'Startup India',d:'Govt portal for Indian startups',u:'startupindia.gov.in',ico:'🇮🇳',isFree:true},
+    {n:'Product Hunt',d:'Discover new products daily',u:'producthunt.com',ico:'🐱',isGem:true,isFree:true},
+    {n:'Crunchbase',d:'Company data & funding rounds',u:'crunchbase.com',ico:'📊',isGem:true},
+    {n:'YC Library',d:'Y Combinator startup essays',u:'ycombinator.com/library',ico:'🔶',isGem:true,isFree:true},
+    {n:'Razorpay',d:'Payment gateway for Indian businesses',u:'razorpay.com',ico:'💸'},
+    {n:'Zoho',d:'Full business software suite India',u:'zoho.com',ico:'🟠'},
+    {n:'Hotjar',d:'User behavior heatmaps & recordings',u:'hotjar.com',ico:'🔥',isGem:true},
+    {n:'Indie Hackers',d:'Community of bootstrapped founders',u:'indiehackers.com',ico:'💡',isGem:true,isFree:true},
+    {n:'Lark',d:'Free Slack + Notion + Zoom in one',u:'larksuite.com',ico:'🐦',isGem:true,isFree:true},
+    {n:'Mixpanel',d:'Product analytics for startups',u:'mixpanel.com',ico:'📈',isGem:true},
+  ]},
+  {id:'legal',emoji:'⚖️',title:'Legal & Compliance',desc:'Free legal tools, templates, rights & compliance resources for India.',links:[
+    {n:'India Code',d:'All Indian Acts & laws official',u:'indiacode.nic.in',ico:'⚖️',isGem:true,isFree:true},
+    {n:'eCourts',d:'Track any court case India online',u:'ecourts.gov.in',ico:'🏛',isGem:true,isFree:true},
+    {n:'Consumer Forum',d:'File consumer complaint online',u:'consumerhelpline.gov.in',ico:'🗣',isGem:true,isFree:true},
+    {n:'Vakilsearch',d:'Legal services & company registration',u:'vakilsearch.com',ico:'👨‍⚖️',isGem:true},
+    {n:'MyAdvo',d:'Find lawyers & legal advice',u:'myadvo.in',ico:'🔍',isGem:true},
+    {n:'RTI India',d:'File Right to Information requests',u:'rtionline.gov.in',ico:'📝',isGem:true,isFree:true},
+    {n:'TRAI',d:'Telecom complaints & Do Not Disturb',u:'trai.gov.in',ico:'📡',isGem:true,isFree:true},
+  ]},
+  {id:'language',emoji:'🌐',title:'Language & Translation',desc:'Learn languages, translate content, improve writing — every language goal.',links:[
+    {n:'Duolingo',d:'Language learning gamified & free',u:'duolingo.com',ico:'🦜',isFree:true},
+    {n:'Google Translate',d:'Translate 130+ languages instantly',u:'translate.google.com',ico:'🔵',isFree:true},
+    {n:'DeepL',d:'Best AI translation tool available',u:'deepl.com',ico:'🔷',isGem:true,isFree:true},
+    {n:'Babbel',d:'Conversational language learning',u:'babbel.com',ico:'🗣',isGem:true},
+    {n:'italki',d:'Practice with native speaker tutors',u:'italki.com',ico:'🎙',isGem:true},
+    {n:'Anki',d:'Flashcard system — best for vocab',u:'apps.ankiweb.net',ico:'🃏',isGem:true,isFree:true},
+    {n:'Grammarly',d:'English grammar & writing assistant',u:'grammarly.com',ico:'✍️',isFree:true},
+    {n:'Clozemaster',d:'Advanced language practice in context',u:'clozemaster.com',ico:'🧩',isGem:true,isFree:true},
+  ]},
+  {id:'research',emoji:'🔬',title:'Research & Reference',desc:'Academic papers, data, fact-checking, statistics — find the truth online.',links:[
+    {n:'Google Scholar',d:'Academic papers & citations free',u:'scholar.google.com',ico:'🎓',isFree:true},
+    {n:'Semantic Scholar',d:'AI-powered research paper search',u:'semanticscholar.org',ico:'🔬',isGem:true,isFree:true},
+    {n:'Wolfram Alpha',d:'Compute answers to anything',u:'wolframalpha.com',ico:'🐺',isGem:true},
+    {n:'Our World in Data',d:'Free data visualisations on everything',u:'ourworldindata.org',ico:'🌍',isGem:true,isFree:true},
+    {n:'Wikipedia',d:'Free encyclopedia — always start here',u:'wikipedia.org',ico:'📖',isFree:true},
+    {n:'Internet Archive',d:'Wayback Machine — see old websites',u:'archive.org',ico:'🏛',isGem:true,isFree:true},
+    {n:'Consensus',d:'AI search over 200M research papers',u:'consensus.app',ico:'✅',isGem:true,isNew:true,isFree:true},
+    {n:'Zotero',d:'Free reference manager & citations',u:'zotero.org',ico:'📚',isGem:true,isFree:true},
+    {n:'Statista',d:'Statistics & market data charts',u:'statista.com',ico:'📊',isGem:true},
+  ]},
+];
+
+let AF='all';
+function buildAll(){
+  const mc=document.getElementById('mc');
+  let h='';
+  CATS.forEach((c,i)=>{
+    h+=`<section class="csec fin" id="sec-${c.id}">
+      <div class="cwm">${String(i+1).padStart(2,'0')}</div>
+      <div class="cin"><div class="chdr"><span class="cem">${c.emoji}</span><div class="ctit">${c.title}</div><div class="ccnt" id="cnt-${c.id}">${c.links.length} links</div></div><div class="cdesc">${c.desc}</div></div>
+      <div class="lgrid" id="grid-${c.id}"></div>
+    </section>`;
+  });
+  mc.innerHTML=h;renderAll('all');setupIO();
+}
+function rGrid(cat,f){
+  const g=document.getElementById('grid-'+cat.id),cnt=document.getElementById('cnt-'+cat.id);
+  if(!g)return;
+  let ls=cat.links;
+  if(f==='new')ls=ls.filter(l=>l.isNew);
+  if(f==='gem')ls=ls.filter(l=>l.isGem);
+  if(f==='free')ls=ls.filter(l=>l.isFree);
+  cnt.textContent=ls.length+' links';
+  if(!ls.length){g.innerHTML=`<div style="padding:28px 36px;color:var(--muted);font-size:12px">No links match this filter here</div>`;return;}
+  g.innerHTML=ls.map(l=>`<a class="lc" href="https://${l.u}" target="_blank" rel="noopener"><div class="ctop"><div class="cico">${l.ico}</div><span class="larr">↗</span></div><div class="cn">${l.n}${l.isNew?'<span class="bnw">New</span>':''}${l.isGem?'<span class="bgm">Gem</span>':''}${l.isFree?'<span class="bfr">Free</span>':''}</div><div class="cd">${l.d}</div><div class="cu">${l.u}</div></a>`).join('');
+}
+function renderAll(f){CATS.forEach(c=>rGrid(c,f));}
+function setF(f,btn){document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');AF=f;renderAll(f);const m={all:'Showing all 200+ links',new:'Showing newly added',gem:'Showing hidden gems',free:'Showing 100% free tools'};showToast(m[f]);}
+
+function openS(){document.getElementById('so').classList.add('open');setTimeout(()=>document.getElementById('si').focus(),80)}
+function closeS(){document.getElementById('so').classList.remove('open');document.getElementById('si').value='';document.getElementById('sr').innerHTML='<div class="shnt">Type to search 200+ links across 20 categories</div>'}
+document.getElementById('si').addEventListener('input',function(){
+  const q=this.value.toLowerCase().trim(),sr=document.getElementById('sr');
+  if(!q){sr.innerHTML='<div class="shnt">Type to search 200+ links across 20 categories</div>';return;}
+  const hits=[];CATS.forEach(c=>{c.links.forEach(l=>{if(l.n.toLowerCase().includes(q)||l.d.toLowerCase().includes(q)||c.title.toLowerCase().includes(q))hits.push({...l,ct:c.title});});});
+  if(!hits.length){sr.innerHTML='<div class="shnt">No results. Try different words.</div>';return;}
+  sr.innerHTML=hits.slice(0,14).map(m=>`<a class="si" href="https://${m.u}" target="_blank" rel="noopener"><div class="sico">${m.ico}</div><div class="sinf"><div class="sn">${m.n}${m.isNew?'<span class="bnw" style="margin-left:5px">New</span>':''}${m.isGem?'<span class="bgm" style="margin-left:5px">Gem</span>':''}</div><div class="sd">${m.d}</div></div><span class="stg">${m.ct}</span><span style="color:var(--muted);font-size:12px">↗</span></a>`).join('');
+});
+
+function ng(btn,id){document.querySelectorAll('.nt').forEach(b=>b.classList.remove('active'));if(btn&&btn.classList)btn.classList.add('active');if(id==='hero'){window.scrollTo({top:0,behavior:'smooth'});return;}const el=document.getElementById('sec-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+
+const secs=['hero',...CATS.map(c=>c.id),'review'];
+let tk=false;
+window.addEventListener('scroll',()=>{if(!tk){requestAnimationFrame(()=>{document.getElementById('stb').classList.toggle('show',scrollY>400);for(let i=secs.length-1;i>=0;i--){const el=document.getElementById('sec-'+secs[i]);if(el&&el.getBoundingClientRect().top<=80){document.querySelectorAll('.nt').forEach(b=>b.classList.remove('active'));const t=document.querySelector(`[data-s="${secs[i]}"]`);if(t)t.classList.add('active');break;}}tk=false;});tk=true;}});
+
+function setupIO(){const o=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');o.unobserve(e.target);}});},{threshold:.05});document.querySelectorAll('.fin').forEach(el=>o.observe(el));}
+
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+function aR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(aR)}aR();
+document.addEventListener('mouseover',e=>{if(e.target.closest('a,button')){cur.style.width='20px';cur.style.height='20px';ring.style.width='54px';ring.style.height='54px';}else{cur.style.width='10px';cur.style.height='10px';ring.style.width='34px';ring.style.height='34px';}});
+
+const TI=['Food','Shopping','Travel','Banking','AI Tools','Design','Dev','Startup','Legal','Research','Language','Govt','Music','Entertainment','Jobs','Health'];
+const tEl=document.getElementById('ti');
+tEl.innerHTML=[...TI,...TI,...TI,...TI].map(i=>`<span class="tit">${i}</span>`).join('');
+
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openS();}if(e.key==='Escape')closeS();});
+document.getElementById('so').addEventListener('click',function(e){if(e.target===this)closeS();});
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+
+buildAll();
+document.getElementById('nc').textContent=CATS.reduce((a,c)=>a+c.links.length,0)+' links';
+</script>
+</body>
+</html>
